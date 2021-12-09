@@ -1,0 +1,8 @@
+body{
+  background:red;
+}
+
+.main-nav {
+  list-style: none;
+
+}

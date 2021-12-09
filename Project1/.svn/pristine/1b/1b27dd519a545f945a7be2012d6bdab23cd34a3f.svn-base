@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="./css/style.css">
+    <meta charset="utf-8">
+    <title>Project 1</title>
+  </head>
+
+  <body>
+    <nav class="main-nav">
+      <ul>
+        <li class="purposePage"> <a href="purpose.php"> Project purpose</a></li>
+        <li class="textPage"> <a href = "textPage.php">Text here</a></li>
+        <li class="logIn">Log in</li>
+      </ul>
+    </nav>
+
+
+    <button class="playButton" type="button" name="button">Play!</button>
+
+  </body>
+</html>

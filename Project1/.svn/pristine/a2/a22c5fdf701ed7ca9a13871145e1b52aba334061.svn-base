@@ -1,0 +1,8 @@
+body{
+  background:blue;
+}
+
+.main-nav {
+  list-style: none;
+
+}
