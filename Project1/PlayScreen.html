@@ -3,109 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Game Window</title>
-    <link rel="stylesheet" href="./css/playScreenCss.css">
-    <script src="./libraries/phaser.js"></script>
+    <link rel="stylesheet" href="./css/playScreen.css">
+    <script src="libraries/phaser-3.55.2/dist/phaser.js"></script>
+    <script type = "module" src="node_modules/socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
 
-<script type="text/javascript">
-
-    var config  = {
-        type: Phaser.AUTO,
-        width: 800,
-        height: 600,
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: {y: 300},
-                debug: false
-            }
-        },
-        scene: {
-            preload: preload,
-            create: create,
-            update: update
-        }
-
-    };
-    var player;
-    var platforms;
-
-    var game = new Phaser.Game(config);
-
-    function preload ()
-    {
-        this.load.spritesheet('player', '/resources/images/warriorPlayer.png', {frameWidth:69, frameHeight: 44});
-        this.load.image('background', '/resources/images/Background.png');
-        this.load.image('greenPlatform','/resources/images/platform01.png');
-        this.load.image('ground','/resources/images/ground.png');
-
-    }
-
-    function create ()
-    {
-
-        platforms = this.physics.add.staticGroup();
-
-        this.add.image(400,300,'background');
-        this.add.image(0,600,'ground').setScale(2,1);
-
-        platforms.create(0, 500,'greenPlatform');
-
-        player = this.physics.add.sprite(100,450, 'player');
-
-        player.setBounce(0.2);
-        player.setCollideWorldBounds(true);
-
-        cursors = this.input.keyboard.createCursorKeys();
-
-        this.anims.create({
-            key: 'idle',
-            frames: this.anims.generateFrameNumbers('player', {start: 0, end: 5}),
-            frameRate: 10,
-            repeat: -1
-        })
-
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('player', {start: 6, end: 11}),
-            frameRate: 10,
-            repeat: -1
-
-        })
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('player', {start: 6, end: 11}),
-            frameRate: 10,
-            repeat: -1
-        })
-
-    }
-
-    function update ()
-    {
-        player.flipX = false;
-
-        if (cursors.right.isDown){
-            player.setVelocityX(160);
-            player.anims.play('right', true);
-        }
-        else if (cursors.left.isDown){
-            player.flipX = true;
-            player.setVelocityX(-160);
-            player.anims.play('left', true);
-        }
-        else{
-            player.setVelocityX(0);
-            player.anims.play('idle', true);
-    }
-
-
-
-
-    }
-
-</script>
+    <script type="module" src="game.js"></script>
+    <script src="client.js"></script>
+    <script type="Module" src="server.js"></script>
 
 </body>
 </html>
