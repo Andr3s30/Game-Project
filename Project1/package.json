@@ -1,21 +1,6 @@
 {
-  "name": "Project1",
-  "version": "1.0.0",
   "dependencies": {
     "express": "^4.17.2",
-    "http": "0.0.1-security",
-    "socket.io": "^4.2.0",
-    "socket.io-client": "^4.2.0"
-  },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "main": "client.js",
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "socket.io": "^4.4.1"
+  }
 }
