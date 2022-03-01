@@ -6,7 +6,7 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/libraries/phaser-3.55.2" />
+      <root url="file://$PROJECT_DIR$/js/phaser-3.55.2" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

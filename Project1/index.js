@@ -4,15 +4,48 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const path = require('path');
+
+app.use('/js', express.static(path.join(__dirname, '/js')));
+app.use('/css', express.static(path.join(__dirname, '/css')));
+app.use('/resources', express.static(path.join(__dirname, '/resources')));
 
 app.get('/', (req, res) => {
-    res.sendFile('/PlayScreen.html');
+    res.sendFile(path.join(__dirname, '/PlayScreen.html'));
 });
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
+server.listen(3001, () => {
+    console.log('listening on *:3001');
 });
 
-server.listen(3000, () => {
-    console.log('listening on *:3000');
+var players = {};
+
+io.on('connection',function(socket){
+    socket.on('newplayer',function(){
+        console.log('hi from newplayer');
+        players[socket.id] = {
+            playerId: socket.id,
+            x: Math.floor(Math.random() * 300) + 100, //random int from 100 to 400
+            y: Math.floor(Math.random() * 300) + 100
+        };
+        socket.emit('currentPlayers', players);
+        socket.broadcast.emit('newPlayer', players[socket.id]);
+
+    });
 });
+
+io.on('disconnect', function (){
+    console.log('user disconnected');
+
+    delete players[socket.id];
+    io.emit('disconnect', socket.id);
+});
+
+// function getAllPlayers(){
+//     var players = [];
+//     Object.keys(io.sockets.connected).forEach(function(socketID){
+//         var player = io.sockets.connected[socketID].player;
+//         if(player) players.push(player);
+//     });
+//     return players;
+// }
