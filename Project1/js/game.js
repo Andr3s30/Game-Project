@@ -1,7 +1,5 @@
 import GameScene from "./scene1.js";
 
-// let GameScene = new GameScene();
-
 let config = {
     type: Phaser.AUTO,
     width: 800,
@@ -13,11 +11,10 @@ let config = {
             debug: false
         }
     },
-    scene: GameScene
+    scene:[GameScene]
 };
 
-let game = new Phaser.Game(config);
-
+export const game = new Phaser.Game(config);
 game.scene.start('GameScene');
 
 

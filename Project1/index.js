@@ -22,25 +22,23 @@ var players = {};
 
 io.on('connection',function(socket){
     socket.on('newplayer',function(){
-        console.log('hi from server');
         players[socket.id] = {
             playerId: socket.id,
             x: Math.floor(Math.random() * 300) + 100, //random int from 100 to 400
             y: Math.floor(Math.random() * 300) + 100
         };
-        // socket.emit('currentPlayers', players);
-        // socket.broadcast.emit('newplayer', players[socket.id]);
-        socket.emit('newplayer', players[socket.id]);
+        socket.emit('currentPlayers', players);
+        socket.broadcast.emit('newplayer', players[socket.id]);
+        // socket.emit('newplayer', players[socket.id]);
         console.log('broadCast Sent')
 
     });
 });
 
-io.on('disconnect', function (){
-    console.log('user disconnected');
-
+io.on('disconnect', function (socket){
+    console.log('destroy from server!!');
     delete players[socket.id];
-    io.emit('disconnect', socket.id);
+    io.broadcast.emit('disconnect', socket.id);
 });
 
 // function getAllPlayers(){

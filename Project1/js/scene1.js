@@ -1,4 +1,5 @@
-import {Client} from "./client.js";
+import {Client} from "./client.js"
+import eventsCenter from "./eventsCenter.js";
 
 export default class GameScene extends Phaser.Scene{
     constructor() {
@@ -12,19 +13,18 @@ export default class GameScene extends Phaser.Scene{
         this.load.spritesheet('player', '/resources/images/warriorPlayer.png', {frameWidth: 69, frameHeight: 44})
     }
 
-    create(){
-        let platforms;
-        let player = [];
-        let playerMap = {};
+        create(){
+            this.player = {myself:'', enemy:''}
+            let playerMap = {};
+            this.platforms = this.physics.add.staticGroup()
 
-        platforms = this.physics.add.staticGroup()
+            this.add.image(400, 300, 'background')
+            this.platforms.create(400, 587.5, 'ground')
 
-        this.add.image(400, 300, 'background')
-        platforms.create(400, 587.5, 'ground')
-
-        Client.askNewPlayer();
-
-        this.physics.add.collider(player, platforms);
+            Client.askNewPlayer();
+            eventsCenter.on('addPlayer', this.addPlayer, this)
+            eventsCenter.on('addOtherPlayer', this.addOtherPlayer, this)
+            eventsCenter.on('destroyDisconnectedSprite', this.destroyDisconnectedSprite, this)
 
         this.anims.create({
             key: 'idleRight',
@@ -47,6 +47,18 @@ export default class GameScene extends Phaser.Scene{
             repeat: -1,
         })
     }
+    addPlayer(data){
+        this.player.myself = this.physics.add.sprite(data['x'], data['y'],'player');
+        this.physics.add.collider(this.player.myself, this.platforms);
+    }
+    addOtherPlayer(data){
+        this.player.enemy = this.physics.add.sprite(data['x'], data['y'],'player');
+        this.physics.add.collider(this.player.enemy, this.platforms);
+    }
+    destroyDisconnectedSprite(){
+        console.log('almost destroyed');
+        this.player.enemy.destroy()
+    }
 
     // update(){
     //     console.log('update fired');
@@ -66,12 +78,10 @@ export default class GameScene extends Phaser.Scene{
     //     }
     // }
 
-     addPlayer(data){
-        console.log(data)
-    }
-
-
-
-
 }
+
+
+
+
+
 
