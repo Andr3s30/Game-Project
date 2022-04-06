@@ -28,10 +28,8 @@ io.on('connection',function(socket){
             y: Math.floor(Math.random() * 300) + 100
         };
         socket.emit('currentPlayers', players);
-        socket.broadcast.emit('newplayer', players[socket.id]);
+        socket.broadcast.emit('newplayer', players);
         // socket.emit('newplayer', players[socket.id]);
-        console.log('broadCast Sent')
-
     });
 });
 
