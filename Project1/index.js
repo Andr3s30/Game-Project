@@ -28,7 +28,7 @@ io.on('connection',function(socket){
             y: Math.floor(Math.random() * 300) + 100
         };
         socket.emit('currentPlayers', players);
-        socket.broadcast.emit('newplayer', players);
+        socket.broadcast.emit('newplayer', players[socket.id]);
         // socket.emit('newplayer', players[socket.id]);
     });
 });

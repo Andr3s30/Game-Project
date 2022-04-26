@@ -55,28 +55,36 @@ export default class GameScene extends Phaser.Scene{
         this.player.enemy = this.physics.add.sprite(data['x'], data['y'],'player');
         this.physics.add.collider(this.player.enemy, this.platforms);
     }
+    joinPlayer(data){
+
+    }
     destroyDisconnectedSprite(){
         console.log('almost destroyed');
         this.player.enemy.destroy()
     }
 
-    // update(){
-    //     console.log('update fired');
-    //     let cursors = this.input.keyboard.createCursorKeys();
-    //     // game.playerMap['playerId'] = addNewPlayer();
-    //     if (cursors.left.isDown) {
-    //         game.playerMap['playerId'].setVelocityX(-160);
-    //         game.playerMap['playerId'].anims.play('left', true);
-    //         game.playerMap['playerId'].flipX = true;
-    //     } else if (cursors.right.isDown) {
-    //         game.playerMap['playerId'].setVelocityX(160);
-    //         game.playerMap['playerId'].anims.play('right', true);
-    //         game.playerMap['playerId'].flipX = false;
-    //     } else {
-    //         game.playerMap['playerId'].setVelocityX(0);
-    //         game.playerMap['playerId'].anims.play('idleRight', true);
-    //     }
-    // }
+    update(){
+        eventsCenter.on('joinPlayer', drawJoinedPlayer, this);
+        function drawJoinedPlayer(data){
+            this.player.enemy = this.physics.add.sprite(data['x'], data['y'],'player');
+            this.physics.add.collider(this.player.enemy, this.platforms);
+        }
+        // console.log('update fired');
+        // let cursors = this.input.keyboard.createCursorKeys();
+        // // game.playerMap['playerId'] = addNewPlayer();
+        // if (cursors.left.isDown) {
+        //     game.playerMap['playerId'].setVelocityX(-160);
+        //     game.playerMap['playerId'].anims.play('left', true);
+        //     game.playerMap['playerId'].flipX = true;
+        // } else if (cursors.right.isDown) {
+        //     game.playerMap['playerId'].setVelocityX(160);
+        //     game.playerMap['playerId'].anims.play('right', true);
+        //     game.playerMap['playerId'].flipX = false;
+        // } else {
+        //     game.playerMap['playerId'].setVelocityX(0);
+        //     game.playerMap['playerId'].anims.play('idleRight', true);
+        // }
+    }
 
 }
 

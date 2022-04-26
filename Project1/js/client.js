@@ -4,7 +4,7 @@ import eventsCenter from "./eventsCenter.js";
 
 export let Client = {};
 Client.socket = io.connect()
-
+let otherPlayer = 0;
 Client.socket.on('currentPlayers', function (players){
     if(Object.keys(players).length > 2){
         window.alert('Error: two people already connected');
@@ -16,6 +16,7 @@ Client.socket.on('currentPlayers', function (players){
         }
         else{
             eventsCenter.emit('addOtherPlayer', players[id]);
+            otherPlayer++;
         }
     })
 });
@@ -24,8 +25,8 @@ Client.askNewPlayer = function () {
     Client.socket.emit('newplayer');
 };
 
-Client.socket.on('newplayer', function (players) {
-    eventsCenter.emit('addOtherPlayer', players);
+Client.socket.on('newplayer', function (playerData) {
+    eventsCenter.emit('joinPlayer', playerData);
 });
 
 Client.socket.on('disconnect', function (){
