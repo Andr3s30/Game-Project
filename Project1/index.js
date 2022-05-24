@@ -31,13 +31,18 @@ io.on('connection',function(socket){
         socket.broadcast.emit('newplayer', players[socket.id]);
         // socket.emit('newplayer', players[socket.id]);
     });
+
+    socket.on('playerMoved',function(direction){
+        socket.broadcast.emit('moveEnemy', direction);
+    });
+
 });
 
-io.on('disconnect', function (socket){
-    console.log('destroy from server!!');
-    delete players[socket.id];
-    io.broadcast.emit('disconnect', socket.id);
-});
+// io.on('disconnect', function (socket){
+//     console.log('destroy from server!!');
+//     delete players[socket.id];
+//     io.broadcast.emit('disconnect', socket.id);
+// });
 
 // function getAllPlayers(){
 //     var players = [];

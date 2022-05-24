@@ -29,8 +29,13 @@ Client.socket.on('newplayer', function (playerData) {
     eventsCenter.emit('joinPlayer', playerData);
 });
 
-Client.socket.on('disconnect', function (){
-    eventsCenter.emit('destroyDisconnectedSprite');
-})
+// Client.socket.on('disconnect', function (){
+//     eventsCenter.emit('destroyDisconnectedSprite');
+// })
 
-
+Client.playerMovement =  function (direction) {
+    Client.socket.emit("playerMoved", direction);
+}
+Client.socket.on('moveEnemy', function (direction) {
+    eventsCenter.emit('moveEnemy', direction);
+});
